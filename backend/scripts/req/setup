@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eo pipefail
+
+DOMAIN="https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com"
+export DOMAIN
