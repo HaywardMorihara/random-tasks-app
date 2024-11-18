@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://vnti167jfkbk"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_5u2v5"]
+
+[node name="Main" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5u2v5")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "Hello _"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "What is your Random Task?"
