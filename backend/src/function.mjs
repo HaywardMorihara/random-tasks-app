@@ -11,7 +11,7 @@ const client = new DynamoDBClient({});
 
 const dynamo = DynamoDBDocumentClient.from(client);
 
-const tableName = "http-crud-tutorial-items";
+const tableName = "random-tasks";
 
 export const handler = async (event, context) => {
   let body;
@@ -22,48 +22,52 @@ export const handler = async (event, context) => {
 
   try {
     switch (event.routeKey) {
-      case "DELETE /items/{id}":
-        await dynamo.send(
-          new DeleteCommand({
-            TableName: tableName,
-            Key: {
-              id: event.pathParameters.id,
-            },
-          })
-        );
-        body = `Deleted item ${event.pathParameters.id}`;
+      // case "DELETE /items/{id}":
+      //   await dynamo.send(
+      //     new DeleteCommand({
+      //       TableName: tableName,
+      //       Key: {
+      //         id: event.pathParameters.id,
+      //       },
+      //     })
+      //   );
+      //   body = `Deleted item ${event.pathParameters.id}`;
+      //   break;
+      // case "GET /items/{id}":
+      //   body = await dynamo.send(
+      //     new GetCommand({
+      //       TableName: tableName,
+      //       Key: {
+      //         id: event.pathParameters.id,
+      //       },
+      //     })
+      //   );
+      //   body = body.Item;
+      //   break;
+      case "POST /tasks":
+        body = "Hello world";
         break;
-      case "GET /items/{id}":
-        body = await dynamo.send(
-          new GetCommand({
-            TableName: tableName,
-            Key: {
-              id: event.pathParameters.id,
-            },
-          })
-        );
-        body = body.Item;
-        break;
-      case "GET /items":
+      case "GET /tasks/random":
+        // TODO
         body = await dynamo.send(
           new ScanCommand({ TableName: tableName })
         );
         body = body.Items;
         break;
-      case "PUT /items":
-        let requestJSON = JSON.parse(event.body);
-        await dynamo.send(
-          new PutCommand({
-            TableName: tableName,
-            Item: {
-              id: requestJSON.id,
-              price: requestJSON.price,
-              name: requestJSON.name,
-            },
-          })
-        );
-        body = `Put item ${requestJSON.id}`;
-        break;
+      // case "PUT /items":
+      //   let requestJSON = JSON.parse(event.body);
+      //   await dynamo.send(
+      //     new PutCommand({
+      //       TableName: tableName,
+      //       Item: {
+      //         id: requestJSON.id,
+      //         price: requestJSON.price,
+      //         name: requestJSON.name,
+      //       },
+      //     })
+      //   );
+      //   body = `Put item ${requestJSON.id}`;
+      //   break;
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }

@@ -1,14 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Example template for an HTTP API that creates, updates, and deletes items in DynamoDB
+  Random Tasks Application
   
 Globals:
   Function:
     Timeout: 10
 
 Resources:
-  DDBHandlerFunction:
+  RandomTasksFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/
@@ -16,41 +16,41 @@ Resources:
       Runtime: nodejs18.x
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref ItemsTable
+            TableName: !Ref RandomTasksTable
       Events:
-        GetAllItems:
+        CreateTask:
           Type: HttpApi
           Properties:
-            Path: /items
+            Path: /tasks
+            Method: POST
+        GetRandomTask:
+          Type: HttpApi
+          Properties:
+            Path: /tasks/random
             Method: GET
-        GetAnItem:
-          Type: HttpApi
-          Properties:
-            Path: /items/{id}
-            Method: GET
-        DeleteAnItem:
-          Type: HttpApi
-          Properties:
-            Path: /items/{id}
-            Method: DELETE
-        CreateOrUpdateItem:
-          Type: HttpApi
-          Properties:
-            Path: /items
-            Method: PUT
 
-  ItemsTable:
-    Type: AWS::Serverless::SimpleTable
+  RandomTasksTable:
+    Type: AWS::DynamoDB::Table
     Properties:
-      PrimaryKey:
-        Name: id
-        Type: String
-      TableName: http-crud-tutorial-items
+      TableName: random-tasks
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
 
 Outputs:
   ApiEndpoint:
     Description: "The invoke URL for our HTTP API"
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/items"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/tasks"
   Function:
-    Description: "DynamoDB handler function ARN"
-    Value: !GetAtt DDBHandlerFunction.Arn
+    Description: "Random Tasks function ARN"
+    Value: !GetAtt RandomTasksFunction.Arn

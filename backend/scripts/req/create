@@ -3,4 +3,4 @@ set -eo pipefail
 
 source scripts/req/setup
 
-curl ${DOMAIN}/tasks/random
+curl -X POST ${DOMAIN}/tasks

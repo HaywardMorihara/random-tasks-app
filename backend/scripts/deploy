@@ -9,4 +9,5 @@ else
     echo "AWS credentials are already configured."
 fi
 
+sam build
 sam deploy
