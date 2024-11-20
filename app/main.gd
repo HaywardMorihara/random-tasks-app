@@ -9,7 +9,7 @@ func _ready() -> void:
 	# Signals
 	http_requester.request_completed.connect(_on_request_completed);
 	
-	http_requester.request("https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com/items");
+	http_requester.request("https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com/tasks/random?user_id=%s" % User.USER_ID);
 	
 	text_edit.grab_focus();
 
