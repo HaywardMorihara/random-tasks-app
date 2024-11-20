@@ -1,5 +1,14 @@
 #!/bin/bash
 set -eo pipefail
 
-DOMAIN="https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com"
+# Check if LOCAL is true
+if [ "$LOCAL" = "true" ]; then
+    DOMAIN="http://127.0.0.1:3000"
+else
+    DOMAIN="https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com"
+fi
+
+# Print the DOMAIN variable to verify
+echo "DOMAIN is set to: $DOMAIN"
+
 export DOMAIN

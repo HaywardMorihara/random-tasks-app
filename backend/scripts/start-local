@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eo pipefail
+
+sam build
+sam local start-api
