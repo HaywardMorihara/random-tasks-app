@@ -12,3 +12,5 @@ fi
 echo "DOMAIN is set to: $DOMAIN"
 
 export DOMAIN
+
+export TEST_USER_ID=245678

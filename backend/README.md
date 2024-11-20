@@ -68,14 +68,14 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 
 | API | Route | Request | Response |
 | --- | --- | --- | --- |
-| POST Create Task | /tasks?user_ID=<USER_ID> | user_id, label
+| POST Create Task | /tasks?user_id=<USER_ID> | user_id, label
 other properties optional | - |
-| GET Random Task | /tasks/random?user_ID=<USER_ID> | user_id | Task Object |
-| GET Tasks | /tasks?user_ID=<USER_ID> | user_id
+| GET Random Task | /tasks/random?user_id=<USER_ID> | user_id | Task Object |
+| GET Tasks | /tasks?user_id=<USER_ID> | user_id
 Later: Page, Sort, Filters | [] task_id, label, status
 page |
-| GET Task | /tasks/<TASK_ID>?user_ID=<USER_ID> | task_id, user_id | Task Object |
-| PATCH Task | /tasks/<TASK_ID>?user_ID=<USER_ID> | user_id, task_id
+| GET Task | /tasks/<TASK_ID>?user_id=<USER_ID> | task_id, user_id | Task Object |
+| PATCH Task | /tasks/<TASK_ID>?user_id=<USER_ID> | user_id, task_id
 anything else | - |
 
 ### Random Algorithm

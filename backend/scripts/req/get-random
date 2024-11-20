@@ -3,4 +3,4 @@ set -eo pipefail
 
 source scripts/req/setup
 
-curl ${DOMAIN}/tasks/random
+curl ${DOMAIN}/tasks/random?user_id=${TEST_USER_ID} | python3 -m json.tool
