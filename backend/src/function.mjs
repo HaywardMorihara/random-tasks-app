@@ -22,29 +22,8 @@ export const handler = async (event, context) => {
 
   try {
     switch (event.routeKey) {
-      // case "DELETE /items/{id}":
-      //   await dynamo.send(
-      //     new DeleteCommand({
-      //       TableName: tableName,
-      //       Key: {
-      //         id: event.pathParameters.id,
-      //       },
-      //     })
-      //   );
-      //   body = `Deleted item ${event.pathParameters.id}`;
-      //   break;
-      // case "GET /items/{id}":
-      //   body = await dynamo.send(
-      //     new GetCommand({
-      //       TableName: tableName,
-      //       Key: {
-      //         id: event.pathParameters.id,
-      //       },
-      //     })
-      //   );
-      //   body = body.Item;
-      //   break;
       case "POST /tasks":
+        // TODO
         body = "Hello world";
         break;
       case "GET /tasks/random":
@@ -54,20 +33,6 @@ export const handler = async (event, context) => {
         );
         body = body.Items;
         break;
-      // case "PUT /items":
-      //   let requestJSON = JSON.parse(event.body);
-      //   await dynamo.send(
-      //     new PutCommand({
-      //       TableName: tableName,
-      //       Item: {
-      //         id: requestJSON.id,
-      //         price: requestJSON.price,
-      //         name: requestJSON.name,
-      //       },
-      //     })
-      //   );
-      //   body = `Put item ${requestJSON.id}`;
-      //   break;
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }
