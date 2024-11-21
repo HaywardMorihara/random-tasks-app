@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Random Tasks App"
-run/main_scene="res://main.tscn"
+run/main_scene="res://uis/main_menu_ui.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/low_processor_mode=true
 config/icon="res://icon.svg"
 
 [autoload]
@@ -29,6 +30,5 @@ window/handheld/orientation=1
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
