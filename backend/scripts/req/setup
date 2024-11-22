@@ -2,10 +2,10 @@
 set -eo pipefail
 
 # Check if LOCAL is true
-if [ "$LOCAL" = "true" ]; then
-    DOMAIN="http://127.0.0.1:3000"
-else
+if [ "$REMOTE" = "true" ]; then
     DOMAIN="https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com"
+else
+    DOMAIN="http://127.0.0.1:3000"
 fi
 
 # Print the DOMAIN variable to verify

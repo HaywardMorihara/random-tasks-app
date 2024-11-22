@@ -33,6 +33,11 @@ Resources:
           Properties:
             Path: /tasks/random
             Method: GET
+        PatchTask:
+          Type: HttpApi
+          Properties:
+            Path: /tasks/{id}
+            Method: PATCH
 
   RandomTasksTable:
     Type: AWS::DynamoDB::Table

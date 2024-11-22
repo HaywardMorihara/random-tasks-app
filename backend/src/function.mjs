@@ -4,6 +4,7 @@ import {
   QueryCommand,
   PutCommand,
   GetCommand,
+  UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 import { selectTaskAtRandom } from "./random.mjs";
@@ -23,14 +24,14 @@ export const handler = async (event, context) => {
 
   try {
     // DEBUG
-    // console.log(event)
+    // console.log(event);
 
     let requestJSON
     if (event.body) {
       requestJSON = JSON.parse(event.body);
     }
     
-    let userId = event?.queryStringParameters?.["user_id"]
+    let userId = event?.queryStringParameters?.["user_id"];
     if (!userId) throw new Error("Bad request - missing 'user_id' query param");
 
     switch (event.routeKey) {
@@ -41,7 +42,7 @@ export const handler = async (event, context) => {
         if (!taskLabel) throw new Error("Bad request - missing 'label' in new Task");
 
         var currentTimestamp = Date.now();
-        var taskId = `${userId}$#${currentTimestamp}`
+        var taskId = asTaskId(userId, currentTimestamp);
 
         await dynamo.send(
           new PutCommand({
@@ -62,7 +63,6 @@ export const handler = async (event, context) => {
         }
         break;
       case "GET /tasks/random":
-        // TODO
         let queryResponse = await dynamo.send(
           new QueryCommand({ 
             TableName: tableName,
@@ -75,7 +75,6 @@ export const handler = async (event, context) => {
         responseBody = selectTaskAtRandom(queryResponse.Items);
         break;
       case "GET /tasks":
-        console.log("here");
         responseBody = await dynamo.send(
           new QueryCommand({ 
             TableName: tableName,
@@ -86,6 +85,33 @@ export const handler = async (event, context) => {
           })
         );
         responseBody = responseBody.Items;
+        break;
+      case "PATCH /tasks/{id}":
+        var taskId = event.pathParameters.id;
+        var taskCreatedAt = extractTaskCreatedAtFromTaskId(taskId);
+        
+        // TODO Validate
+        var patchedStatus = requestJSON.status;
+
+        await dynamo.send(
+          new UpdateCommand({
+            TableName: tableName,
+            Key: {
+              pk: `USER_ID#${userId}`,
+              sk: `TASK_CREATED_AT#${taskCreatedAt}`,
+            },
+            UpdateExpression: "SET #status = :updatedStatus",
+            // Necessary because 'status' is a reserved word
+            ExpressionAttributeNames: {
+              "#status": "status"
+            },
+            ExpressionAttributeValues: {
+              ":updatedStatus": patchedStatus,
+            },
+            ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)", // Ensures "PATCH" rather than "UPSERT"
+          })
+        );
+        responseBody = `Success! Updated task ${taskId}`
         break;
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
@@ -103,3 +129,12 @@ export const handler = async (event, context) => {
     headers,
   }; 
 };
+
+function asTaskId(userId, createdAtTimestamp) {
+  return `${userId}-${createdAtTimestamp}`;
+} 
+
+function extractTaskCreatedAtFromTaskId(taskId) {
+  var position = taskId.indexOf('-');
+  return taskId.substring(position + 1);
+}
