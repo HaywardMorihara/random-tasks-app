@@ -6,6 +6,8 @@ import {
   GetCommand,
 } from "@aws-sdk/lib-dynamodb";
 
+import { selectTaskAtRandom } from "./random.mjs";
+
 const client = new DynamoDBClient({});
 
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -61,7 +63,7 @@ export const handler = async (event, context) => {
         break;
       case "GET /tasks/random":
         // TODO
-        responseBody = await dynamo.send(
+        let queryResponse = await dynamo.send(
           new QueryCommand({ 
             TableName: tableName,
             KeyConditionExpression: "pk = :pkValue",
@@ -70,7 +72,7 @@ export const handler = async (event, context) => {
             },
           })
         );
-        responseBody = responseBody.Items;
+        responseBody = selectTaskAtRandom(queryResponse.Items);
         break;
       case "GET /tasks":
         console.log("here");
