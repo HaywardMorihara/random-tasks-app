@@ -67,8 +67,14 @@ export const handler = async (event, context) => {
           new QueryCommand({ 
             TableName: tableName,
             KeyConditionExpression: "pk = :pkValue",
+            FilterExpression: "#status = :statusValue",
+            // Necessary because 'status' is a reserved word
+            ExpressionAttributeNames: {
+              "#status": "status"
+            },
             ExpressionAttributeValues: {
                 ":pkValue": `USER_ID#${userId}`,
+                ":statusValue": "TODO",
             },
           })
         );
@@ -79,8 +85,14 @@ export const handler = async (event, context) => {
           new QueryCommand({ 
             TableName: tableName,
             KeyConditionExpression: "pk = :pkValue",
+            FilterExpression: "#status = :statusValue",
+            // Necessary because 'status' is a reserved word
+            ExpressionAttributeNames: {
+              "#status": "status"
+            },
             ExpressionAttributeValues: {
                 ":pkValue": `USER_ID#${userId}`,
+                ":statusValue": "TODO",
             },
           })
         );
