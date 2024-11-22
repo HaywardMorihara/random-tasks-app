@@ -9,7 +9,7 @@ else
 fi
 
 # Print the DOMAIN variable to verify
-echo "DOMAIN is set to: $DOMAIN"
+echo "Making requests to: $DOMAIN"
 
 export DOMAIN
 

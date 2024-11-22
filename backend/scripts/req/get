@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eo pipefail
+
+source scripts/req/setup
+
+curl ${DOMAIN}/tasks?user_id=${TEST_USER_ID} | python3 -m json.tool

@@ -72,6 +72,19 @@ export const handler = async (event, context) => {
         );
         responseBody = responseBody.Items;
         break;
+      case "GET /tasks":
+        console.log("here");
+        responseBody = await dynamo.send(
+          new QueryCommand({ 
+            TableName: tableName,
+            KeyConditionExpression: "pk = :pkValue",
+            ExpressionAttributeValues: {
+                ":pkValue": `USER_ID#${userId}`,
+            },
+          })
+        );
+        responseBody = responseBody.Items;
+        break;
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }

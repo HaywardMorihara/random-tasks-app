@@ -23,6 +23,11 @@ Resources:
           Properties:
             Path: /tasks
             Method: POST
+        GetTasks:
+          Type: HttpApi
+          Properties:
+            Path: /tasks
+            Method: GET
         GetRandomTask:
           Type: HttpApi
           Properties:

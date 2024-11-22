@@ -1,4 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
+# Note: Makes requests to the remote DynamoDB
+
 sam local start-api

@@ -11,7 +11,7 @@ See the scripts under `backend/scripts/req/`
 
 For example, invoke:
 ```bash
-./scripts/req/get
+./scripts/req/get-random
 ```
 
 To test locally, start up the local service with:
@@ -22,6 +22,7 @@ and then make requests with `LOCAL=true`. For example:
 ```bash
 LOCAL=true ./scripts/req/get-random
 ```
+(Note: Requests are made to the remote DynamoDB instance)
 
 ### Other SAM Commands
 ```bash
