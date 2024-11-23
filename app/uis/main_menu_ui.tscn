@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://vnti167jfkbk"]
+[gd_scene load_steps=5 format=3 uid="uid://vnti167jfkbk"]
 
 [ext_resource type="Script" path="res://uis/main_menu_ui.gd" id="1_lnu8j"]
 [ext_resource type="Script" path="res://backend_client.gd" id="2_hq0wr"]
 [ext_resource type="PackedScene" uid="uid://cso4cxc4m4sqm" path="res://uis/create_task_ui.tscn" id="3_q124q"]
+[ext_resource type="PackedScene" uid="uid://dni1f4a7ssyom" path="res://uis/task_ui.tscn" id="4_5pgg3"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -56,5 +57,22 @@ offset_bottom = 900.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="TaskUi" parent="." instance=ExtResource("4_5pgg3")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 69.0
+offset_top = 200.0
+offset_right = 669.0
+offset_bottom = 900.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="pressed" from="GetRandomTaskButton" to="." method="_on_get_random_task_button_pressed"]
 [connection signal="pressed" from="CreateTaskButton" to="." method="_on_create_task_button_pressed"]
 [connection signal="task_created" from="CreateTaskUi" to="." method="_on_create_task_ui_task_created"]
+[connection signal="task_completed" from="TaskUi" to="." method="_on_task_ui_task_completed"]

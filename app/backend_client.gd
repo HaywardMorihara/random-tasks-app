@@ -10,18 +10,32 @@ func _ready() -> void:
 	self.request_completed.connect(_on_request_completed);	
 
 
-func get_random_task() -> String:
-	request("%s/tasks/random?user_id=%s" % [DOMAIN, User.USER_ID]);
-	await request_completed;
-	return JSON.stringify(response_json);
-
-
 func create_task(label : String) -> void:
 	var json = JSON.stringify({
 		"label": label,
 	});
 	var headers = ["Content-Type: application/json"]
 	request(_build_request_url("/tasks"), headers, HTTPClient.METHOD_POST, json)
+
+
+func get_random_task() -> Dictionary:
+	request(_build_request_url("/tasks/random"));
+	await request_completed;
+	return response_json;
+
+
+func get_tasks() -> Array:
+	request(_build_request_url("/tasks"));
+	await request_completed;
+	return response_json;
+
+
+func complete_task(task_id : String) -> void:
+	var json = JSON.stringify({
+		"status": "COMPLETED",
+	});
+	var headers = ["Content-Type: application/json"]
+	request(_build_request_url("/tasks/%s" % task_id), headers, HTTPClient.METHOD_PATCH, json)
 
 
 func _build_request_url(path : String) -> String:
