@@ -5,7 +5,6 @@ signal task_created
 @onready var backend_client : BackendClient = $BackendClient
 @onready var task_label_text_edit : TextEdit = $TaskLabelTextEdit
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	task_label_text_edit.grab_focus();
 

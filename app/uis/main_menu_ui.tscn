@@ -17,24 +17,6 @@ script = ExtResource("1_lnu8j")
 [node name="BackendClient" type="HTTPRequest" parent="."]
 script = ExtResource("2_hq0wr")
 
-[node name="GetRandomTaskButton" type="Button" parent="."]
-custom_minimum_size = Vector2(175, 150)
-layout_mode = 2
-offset_left = 292.0
-offset_top = 1014.0
-offset_right = 392.0
-offset_bottom = 1114.0
-text = "Random"
-
-[node name="CreateTaskButton" type="Button" parent="."]
-custom_minimum_size = Vector2(175, 150)
-layout_mode = 2
-offset_left = 515.0
-offset_top = 1020.0
-offset_right = 690.0
-offset_bottom = 1170.0
-text = "Create"
-
 [node name="TasksStream" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(0, 800)
 layout_mode = 1
@@ -43,6 +25,24 @@ anchor_right = 1.0
 offset_bottom = 975.0
 grow_horizontal = 2
 
+[node name="GetRandomTaskButton" type="Button" parent="."]
+custom_minimum_size = Vector2(175, 150)
+layout_mode = 2
+offset_left = 142.0
+offset_top = 54.0
+offset_right = 317.0
+offset_bottom = 204.0
+text = "Random"
+
+[node name="CreateTaskButton" type="Button" parent="."]
+custom_minimum_size = Vector2(175, 150)
+layout_mode = 2
+offset_left = 420.0
+offset_top = 51.0
+offset_right = 595.0
+offset_bottom = 201.0
+text = "Create"
+
 [node name="CreateTaskUi" parent="." instance=ExtResource("3_q124q")]
 layout_mode = 0
 anchors_preset = 0
@@ -50,10 +50,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 64.0
-offset_top = 200.0
-offset_right = 664.0
-offset_bottom = 900.0
+offset_left = 51.0
+offset_top = 215.0
+offset_right = 651.0
+offset_bottom = 915.0
 grow_horizontal = 1
 grow_vertical = 1
 

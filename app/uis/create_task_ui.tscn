@@ -21,6 +21,10 @@ script = ExtResource("2_nl428")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_left = 208.0
+offset_top = 48.0
+offset_right = -266.0
+offset_bottom = 71.0
 grow_horizontal = 2
 text = "Create a Task"
 fit_content = true
@@ -28,10 +32,10 @@ fit_content = true
 [node name="TaskLabelTextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 0
-offset_left = 120.0
-offset_top = 120.0
-offset_right = 520.0
-offset_bottom = 320.0
+offset_left = 95.0
+offset_top = 161.0
+offset_right = 495.0
+offset_bottom = 361.0
 placeholder_text = "Task Label"
 
 [node name="CloseButton" type="Button" parent="."]
@@ -44,10 +48,10 @@ text = "x"
 
 [node name="CreateButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 272.0
-offset_top = 508.0
-offset_right = 332.0
-offset_bottom = 539.0
+offset_left = 199.0
+offset_top = 468.0
+offset_right = 368.0
+offset_bottom = 585.0
 text = "Create"
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
