@@ -33,5 +33,5 @@ func _on_task_ui_task_completed() -> void:
 
 
 func _reload_tasks() -> void:
-	await get_tree().create_timer(2.0).timeout;
+	await get_tree().create_timer(0.5).timeout;
 	task_stream.text = JSON.stringify(await backend_client.get_tasks());
