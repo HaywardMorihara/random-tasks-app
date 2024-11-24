@@ -19,3 +19,8 @@ func _on_create_button_pressed() -> void:
 func _on_close_button_pressed() -> void:
 	hide();
 	task_label_text_edit.text = "";
+
+
+func _on_visibility_changed() -> void:
+	if is_visible_in_tree() and task_label_text_edit:
+		task_label_text_edit.grab_focus();
