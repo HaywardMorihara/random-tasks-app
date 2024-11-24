@@ -22,7 +22,8 @@ custom_minimum_size = Vector2(0, 800)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 975.0
+offset_top = 200.0
+offset_bottom = 1175.0
 grow_horizontal = 2
 
 [node name="GetRandomTaskButton" type="Button" parent="."]
