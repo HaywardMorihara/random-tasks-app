@@ -5,7 +5,7 @@ extends Control
 @onready var create_task_button : Button = $CreateTaskButton
 @onready var create_task_ui : Control = $CreateTaskUi
 @onready var task_ui : Control = $TaskUi;
-@onready var task_stream : Control = $TasksStream
+@onready var all_tasks_list : ItemList = $AllTasksList
 
 
 # Called when the node enters the scene tree for the first time.
@@ -33,5 +33,14 @@ func _on_task_ui_task_completed() -> void:
 
 
 func _reload_tasks() -> void:
+	all_tasks_list.clear();
 	await get_tree().create_timer(0.5).timeout;
-	task_stream.text = JSON.stringify(await backend_client.get_tasks());
+	var all_tasks_response : Array = await backend_client.get_tasks();
+	for task in all_tasks_response:
+		all_tasks_list.add_item(task.label);
+		all_tasks_list.set_item_metadata(all_tasks_list.item_count - 1, task);
+
+
+func _on_all_tasks_list_item_selected(index: int) -> void:
+	# print(all_tasks_list.get_item_metadata(index));
+	pass
