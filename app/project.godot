@@ -28,6 +28,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
+[physics]
+
+common/physics_ticks_per_second=30
+
 [rendering]
 
 renderer/rendering_method="mobile"
