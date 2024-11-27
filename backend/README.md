@@ -6,7 +6,7 @@
 ./scripts/deploy
 ```
 
-### Test the backend
+### Make backend requests
 See the scripts under `backend/scripts/req/`
 
 For example, invoke:
@@ -14,6 +14,7 @@ For example, invoke:
 ./scripts/req/get-random
 ```
 
+### Run the backend locally
 To test locally, start up the local service with:
 ```bash
 ./scripts/start-local
@@ -33,13 +34,9 @@ LOCAL=true ./scripts/req/get-random
 
 ## Architecture
 
-### Technology Choices:
-
-- AWS stack (Lamba, DDB) because I want v1 ASAP & I am familiar with those components
+AWS stack (API Gateway + Lamba + DynamoDB) because I want v0 ASAP & I am already familiar with those components
     - Tradeoff: I’m not sure this is really best for the application
     - Tradeoff: Learning a new cloud provider / technology
-- Godot because it is the most familiar way for building a UI
-    - Tradeoff: I’m guessing I’m missing out on standard mobile functionality (e.g. notifications)
 
 That said, where possible, make components (AWS, Godot) replaceable!
 
@@ -55,7 +52,7 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 {
 	"pk": "USER_ID#<USER_ID>", // Partition Key
 	"sk": "TASK_CREATED_AT#<CREATED_AT>", // Sort Key
-	"id": "<USER_ID>#<CREATED_AT>",
+	"id": "<USER_ID>-<CREATED_AT>",
 	"label": "Title",
 	"description": "more text",
 	"status": "TODO|COMPLETED", 
@@ -69,17 +66,18 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 
 | API | Route | Request | Response |
 | --- | --- | --- | --- |
-| POST Create Task | /tasks?user_id=<USER_ID> | user_id, label
-other properties optional | - |
+| POST Create Task | /tasks?user_id=<USER_ID> | user_id, label, other properties optional | - |
 | GET Random Task | /tasks/random?user_id=<USER_ID> | user_id | Task Object |
-| GET Tasks | /tasks?user_id=<USER_ID> | user_id
-Later: Page, Sort, Filters | [] task_id, label, status
-page |
+| GET Tasks | /tasks?user_id=<USER_ID> | user_id (Later: Page, Sort, Filters) | [] { task_id, label, status }, paged |
 | GET Task | /tasks/<TASK_ID>?user_id=<USER_ID> | task_id, user_id | Task Object |
-| PATCH Task | /tasks/<TASK_ID>?user_id=<USER_ID> | user_id, task_id
-anything else | - |
+| PATCH Task | /tasks/<TASK_ID>?user_id=<USER_ID> | user_id, task_id, other patchable properties optional | - |
+
+### SAM 
+The deployment configuration and local development scripts make use of [AWS SAM (Serverless Application Mode)](https://aws.amazon.com/serverless/sam/) which is essentially a CLI and a framework on top of CloudFormation templates that makes development & deployment with Lambdas easier.
 
 ### Random Algorithm
+
+TBD -- initial thoughts:
 
 WEighting - don’t try to optimize the DB for it — have server side logic handle it
 
