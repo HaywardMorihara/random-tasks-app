@@ -28,7 +28,7 @@ offset_top = 135.0
 offset_right = 154.0
 offset_bottom = 351.0
 grow_horizontal = 2
-text = "Task X"
+text = "Loading..."
 fit_content = true
 
 [node name="CloseButton" type="Button" parent="."]
@@ -46,7 +46,7 @@ offset_left = 256.0
 offset_top = 538.0
 offset_right = 356.0
 offset_bottom = 578.0
-text = "To Do"
+text = "Loading..."
 
 [node name="CompleteButton" type="Button" parent="."]
 layout_mode = 0

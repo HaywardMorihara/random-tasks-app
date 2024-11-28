@@ -36,7 +36,7 @@ offset_left = 95.0
 offset_top = 161.0
 offset_right = 495.0
 offset_bottom = 361.0
-placeholder_text = "Task Label"
+placeholder_text = "What do you want to get done?"
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
