@@ -1,6 +1,15 @@
 #!/bin/bash
 set -eo pipefail
 
+if [ -z "$1" ]; then
+  echo "Error: Missing task_id." >&2
+  echo "Usage: $0 <task_id>" >&2
+  exit 1
+fi
+task_id=$1
+
 source scripts/req/setup
 
-curl ${DOMAIN}/tasks?user_id=${TEST_USER_ID} | python3 -m json.tool
+echo "Requests from user ${TEST_USER_ID}"
+
+curl ${DOMAIN}/tasks/${task_id}?user_id=${TEST_USER_ID} | python3 -m json.tool

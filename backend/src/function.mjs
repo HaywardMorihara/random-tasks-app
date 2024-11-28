@@ -62,6 +62,23 @@ export const handler = async (event, context) => {
           "message": `Success! Created Task ${taskId}`
         }
         break;
+      
+      case "GET /tasks/{id}":
+        var taskId = event.pathParameters.id;
+        var taskCreatedAt = extractTaskCreatedAtFromTaskId(taskId);
+
+        let getResponse = await dynamo.send(
+          new GetCommand({
+            TableName: tableName,
+            Key: {
+              pk: `USER_ID#${userId}`,
+              sk: `TASK_CREATED_AT#${taskCreatedAt}`,
+            },
+          })
+        );
+        responseBody = getResponse.Item;
+        break;
+
       case "GET /tasks/random":
         let queryResponse = await dynamo.send(
           new QueryCommand({ 
@@ -80,6 +97,7 @@ export const handler = async (event, context) => {
         );
         responseBody = selectTaskAtRandom(queryResponse.Items);
         break;
+      
       case "GET /tasks":
         responseBody = await dynamo.send(
           new QueryCommand({ 
@@ -98,6 +116,7 @@ export const handler = async (event, context) => {
         );
         responseBody = responseBody.Items;
         break;
+      
       case "PATCH /tasks/{id}":
         var taskId = event.pathParameters.id;
         var taskCreatedAt = extractTaskCreatedAtFromTaskId(taskId);
@@ -125,6 +144,7 @@ export const handler = async (event, context) => {
         );
         responseBody = `Success! Updated task ${taskId}`
         break;
+      
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }
