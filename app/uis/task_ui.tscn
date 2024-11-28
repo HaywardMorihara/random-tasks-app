@@ -33,10 +33,10 @@ fit_content = true
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 558.0
+offset_left = 540.0
 offset_top = 20.0
-offset_right = 575.0
-offset_bottom = 51.0
+offset_right = 580.0
+offset_bottom = 60.0
 text = "x"
 
 [node name="StatusLabel" type="RichTextLabel" parent="."]

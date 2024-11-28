@@ -40,10 +40,10 @@ placeholder_text = "What do you want to get done?"
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 564.0
+offset_left = 540.0
 offset_top = 14.0
-offset_right = 581.0
-offset_bottom = 45.0
+offset_right = 580.0
+offset_bottom = 54.0
 text = "x"
 
 [node name="CreateButton" type="Button" parent="."]
