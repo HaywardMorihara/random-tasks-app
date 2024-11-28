@@ -42,5 +42,6 @@ func _reload_tasks() -> void:
 
 
 func _on_all_tasks_list_item_selected(index: int) -> void:
-	# print(all_tasks_list.get_item_metadata(index));
-	pass
+	var selected_task_data = all_tasks_list.get_item_metadata(index);
+	task_ui.open(selected_task_data.id);
+	create_task_ui.hide();

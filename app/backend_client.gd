@@ -18,6 +18,12 @@ func create_task(label : String) -> void:
 	request(_build_request_url("/tasks"), headers, HTTPClient.METHOD_POST, json)
 
 
+func get_task(task_id : String) -> Dictionary:
+	request(_build_request_url("/tasks/%s" % task_id));
+	await request_completed;
+	return response_json;
+
+
 func get_random_task() -> Dictionary:
 	request(_build_request_url("/tasks/random"));
 	await request_completed;
