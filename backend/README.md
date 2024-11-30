@@ -77,20 +77,38 @@ The deployment configuration and local development scripts make use of [AWS SAM 
 
 ### Random Algorithm
 
-TBD -- initial thoughts:
+**Calculation on READs rather than WRITEs**
 
-WEighting - don’t try to optimize the DB for it — have server side logic handle it
+Because it's simpler -- you don't have to calculate denormalized data and do READ _and_ WRITE on WRITEs. Simplicity is very important (for velocity & maintenance).
 
-Algo: iterate through all tasks, calculate weights, then random # in between
+The extra slowness on READs is minimal and a tradeoff we can afford to make.
 
-Example: Task-1: 1, Task-2: 0.5, Task-3: 2
+**Float probabilities rather than integer**
 
-Key | Task
+1.0 is the default, and a low probability task is 0.5 or 0.25 and a high probability task is 2.0 or 4.0. 
 
-1
+NOT 1 for low probability task, 3 for default, and 5 for high probability.
 
-1.5
+Because flots are a lot more flexible & future-proof -- it's easy to allow for new values in the future.
 
-3.5
+The tradeoff is the random selection algorithm might have to be a little more complicated. Which leads to...
 
-(?)
+**CDF array rather than entries multiplied by probability**
+
+Algorithm:
+1. Fetch ALL tasks.
+2. Iterate through all tasks. For each task, add it to a new array; include a "cumulative density function" values (sum of all the weights so far)
+3. Get a random value between 0.0 and the CDF value of the last entry.
+4. Do a binary search through the CDF array, finding the entry that has a CDF value less than the random value and the entry to the right is greater than the random value (or it's the last value in the array).
+
+Tradeoff: Some complexity.
+
+More info: https://stackoverflow.com/questions/4463561/weighted-random-selection-from-array
+
+Alternative Algorithm:
+1. Fetch ALL tasks.
+2. Iterate through all tasks. For each task, add it to X times to a array time, where X is the weight of the task.
+3. Get a random value between 1 and the length of the new array.
+4. Get the task at the index of the random value.
+
+Tradeoffs: While it's _maybe_ slightly faster, it also (a) has a bigger memory footprint, but more importantly (b) works with floating values for weights (this algorithm wouldn't work with floating values unless you know the smallest possible weight and they're all multiples of each other. In which case, you kinda might as well use integers, and you lost the flexibility)
