@@ -31,6 +31,10 @@ LOCAL=true ./scripts/req/get-random
 [*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
 ```
 
+### Run unit tests
+```bash
+./scripts/test
+```
 
 ## Architecture
 

@@ -1,0 +1,5 @@
+{
+    "extension": ["mjs"],
+    "spec": "src/**/*.test.mjs",
+    "require": ["chai/register-expect.js"]
+}  
