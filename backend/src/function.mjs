@@ -41,6 +41,11 @@ export const handler = async (event, context) => {
         var taskLabel = requestJSON["label"];
         if (!taskLabel) throw new Error("Bad request - missing 'label' in new Task");
 
+        var taskWeight = requestJSON["weight"];
+        if (!taskWeight) {
+          taskWeight = 1.0
+        }
+
         var currentTimestamp = Date.now();
         var taskId = asTaskId(userId, currentTimestamp);
 
@@ -53,7 +58,8 @@ export const handler = async (event, context) => {
               id: taskId,
               label: taskLabel,
               description: requestJSON.description,
-              status: "TODO"
+              status: "TODO",
+              weight: taskWeight,
             }
           })
         );
@@ -122,7 +128,21 @@ export const handler = async (event, context) => {
         var taskCreatedAt = extractTaskCreatedAtFromTaskId(taskId);
         
         // TODO Validate
-        var patchedStatus = requestJSON.status;
+        var updateExpressionParts = [];
+        var ExpressionAttributeNames = {};
+        var ExpressionAttributeValues = {};
+
+        if (requestJSON.status) {
+          updateExpressionParts.push("#status = :updatedStatus");
+          // Necessary because 'status' is a reserved word
+          ExpressionAttributeNames["#status"] = "status";
+          ExpressionAttributeValues[":updatedStatus"] = requestJSON.status
+        }
+        if (requestJSON.weight) {
+          updateExpressionParts.push("#weight = :updatedWeight");
+          ExpressionAttributeNames["#weight"] = "weight";
+          ExpressionAttributeValues[":updatedWeight"] = requestJSON.weight;
+        }
 
         await dynamo.send(
           new UpdateCommand({
@@ -131,14 +151,9 @@ export const handler = async (event, context) => {
               pk: `USER_ID#${userId}`,
               sk: `TASK_CREATED_AT#${taskCreatedAt}`,
             },
-            UpdateExpression: "SET #status = :updatedStatus",
-            // Necessary because 'status' is a reserved word
-            ExpressionAttributeNames: {
-              "#status": "status"
-            },
-            ExpressionAttributeValues: {
-              ":updatedStatus": patchedStatus,
-            },
+            UpdateExpression: `SET ${updateExpressionParts.join(", ")}`,
+            ExpressionAttributeNames,
+            ExpressionAttributeValues,
             ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)", // Ensures "PATCH" rather than "UPSERT"
           })
         );

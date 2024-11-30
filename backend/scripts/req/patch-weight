@@ -1,0 +1,26 @@
+#!/bin/bash
+set -eo pipefail
+
+if [ -z "$1" ]; then
+  echo "Error: Missing task_id." >&2
+  echo "Usage: $0 <task_id> <updated_weight" >&2
+  exit 1
+fi
+task_id=$1
+
+if [ -z "$1" ]; then
+  echo "Error: Updated weight." >&2
+  echo "Usage: $0 <task_id> <updated_weight" >&2
+  exit 1
+fi
+updated_weight=$2
+
+source scripts/req/setup
+
+echo "Requests from user ${TEST_USER_ID}"
+
+curl -X PATCH ${DOMAIN}/tasks/${task_id}?user_id=${TEST_USER_ID} \
+   -H 'Content-Type: application/json' \
+   -d "{
+            \"weight\": ${updated_weight}
+        }"

@@ -6,5 +6,6 @@ source scripts/req/setup
 curl -X POST ${DOMAIN}/tasks?user_id=${TEST_USER_ID} \
    -H 'Content-Type: application/json' \
    -d '{
-            "label":"First Task"
+            "label":"First Weighted Task",
+            "weight": 2.0
         }'
