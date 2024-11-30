@@ -14,11 +14,11 @@ config/name="Random Tasks App"
 run/main_scene="res://uis/main_menu_ui.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/low_processor_mode=true
-config/icon="res://icon.svg"
+config/icon="res://RandomTasksAppIcon.png"
 
 [autoload]
 
-User="*res://user.gd"
+User="*res://src/user.gd"
 
 [display]
 

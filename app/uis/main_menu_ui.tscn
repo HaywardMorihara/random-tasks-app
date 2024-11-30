@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://vnti167jfkbk"]
 
 [ext_resource type="Script" path="res://uis/main_menu_ui.gd" id="1_lnu8j"]
-[ext_resource type="Script" path="res://backend_client.gd" id="2_hq0wr"]
+[ext_resource type="Script" path="res://src/backend_client.gd" id="2_hq0wr"]
 [ext_resource type="PackedScene" uid="uid://cso4cxc4m4sqm" path="res://uis/create_task_ui.tscn" id="3_q124q"]
 [ext_resource type="PackedScene" uid="uid://dni1f4a7ssyom" path="res://uis/task_ui.tscn" id="4_5pgg3"]
 

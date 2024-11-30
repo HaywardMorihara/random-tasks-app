@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cso4cxc4m4sqm"]
 
 [ext_resource type="Script" path="res://uis/create_task_ui.gd" id="1_nx7x1"]
-[ext_resource type="Script" path="res://backend_client.gd" id="2_nl428"]
+[ext_resource type="Script" path="res://src/backend_client.gd" id="2_nl428"]
 
 [node name="CreateTaskUi" type="Panel"]
 custom_minimum_size = Vector2(600, 700)
