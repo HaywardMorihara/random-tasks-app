@@ -10,9 +10,10 @@ func _ready() -> void:
 	self.request_completed.connect(_on_request_completed);	
 
 
-func create_task(label : String) -> void:
+func create_task(label : String, weight : float) -> void:
 	var json = JSON.stringify({
 		"label": label,
+		"weight": weight,
 	});
 	var headers = ["Content-Type: application/json"]
 	request(_build_request_url("/tasks"), headers, HTTPClient.METHOD_POST, json)

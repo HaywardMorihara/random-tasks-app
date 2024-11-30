@@ -38,6 +38,24 @@ offset_right = 495.0
 offset_bottom = 361.0
 placeholder_text = "What do you want to get done?"
 
+[node name="WeightLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 399.0
+offset_right = 234.0
+offset_bottom = 422.0
+text = "Weight:"
+
+[node name="WeightEdit" type="SpinBox" parent="."]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 394.0
+offset_right = 330.063
+offset_bottom = 425.0
+step = 0.1
+value = 1.0
+alignment = 1
+
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 540.0

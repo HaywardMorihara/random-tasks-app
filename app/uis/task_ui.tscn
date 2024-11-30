@@ -17,6 +17,14 @@ script = ExtResource("1_ll7om")
 [node name="BackendClient" type="HTTPRequest" parent="."]
 script = ExtResource("2_gp4oq")
 
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 20.0
+offset_right = 580.0
+offset_bottom = 60.0
+text = "x"
+
 [node name="TaskLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
@@ -31,13 +39,21 @@ grow_horizontal = 2
 text = "Loading..."
 fit_content = true
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="WeightLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 540.0
-offset_top = 20.0
-offset_right = 580.0
-offset_bottom = 60.0
-text = "x"
+offset_left = 151.0
+offset_top = 335.0
+offset_right = 210.0
+offset_bottom = 358.0
+text = "Weight:"
+
+[node name="Weight" type="Label" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 342.0
+offset_right = 323.0
+offset_bottom = 365.0
+text = "Loading..."
 
 [node name="StatusLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(100, 0)

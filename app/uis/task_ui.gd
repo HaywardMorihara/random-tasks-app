@@ -4,8 +4,9 @@ signal task_completed;
 
 @onready var backend_client : BackendClient = $BackendClient;
 
-@onready var task_label : RichTextLabel = $TaskLabel;
 @onready var close_button : Button = $CloseButton;
+@onready var task_label : RichTextLabel = $TaskLabel;
+@onready var task_weight : Label = $Weight;
 @onready var status_label : RichTextLabel = $StatusLabel;
 @onready var complete_button : Button = $CompleteButton;
 
@@ -53,5 +54,9 @@ func _hide_self() -> void:
 func _set_task(task_data : Variant) -> void:
 	task_id = task_data.id;
 	task_label.text = task_data.label;
+	if task_data.has("weight"):
+		task_weight.text = str(task_data.weight);
+	else:
+		task_weight.text = "1.0";
 	status_label.text = task_data.status;
 	complete_button.disabled = task_data.status == "COMPLETED";
