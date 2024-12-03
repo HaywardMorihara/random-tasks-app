@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dni1f4a7ssyom"]
+[gd_scene load_steps=3 format=3 uid="uid://crg87xbkgg4ry"]
 
-[ext_resource type="Script" path="res://uis/task_ui.gd" id="1_ll7om"]
-[ext_resource type="Script" path="res://src/backend_client.gd" id="2_gp4oq"]
+[ext_resource type="Script" path="res://uis/edit_task_ui.gd" id="1_8li3v"]
+[ext_resource type="Script" path="res://src/backend_client.gd" id="2_ewovs"]
 
 [node name="TaskUi" type="Panel"]
 custom_minimum_size = Vector2(600, 700)
@@ -12,10 +12,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ll7om")
+script = ExtResource("1_8li3v")
 
 [node name="BackendClient" type="HTTPRequest" parent="."]
-script = ExtResource("2_gp4oq")
+script = ExtResource("2_ewovs")
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
@@ -25,7 +25,7 @@ offset_right = 580.0
 offset_bottom = 60.0
 text = "x"
 
-[node name="TaskLabel" type="RichTextLabel" parent="."]
+[node name="TaskLabel" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 5
@@ -34,43 +34,50 @@ anchor_right = 0.5
 offset_left = -158.0
 offset_top = 135.0
 offset_right = 154.0
-offset_bottom = 351.0
+offset_bottom = 330.0
 grow_horizontal = 2
 text = "Loading..."
-fit_content = true
 
 [node name="WeightLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 151.0
-offset_top = 335.0
-offset_right = 210.0
-offset_bottom = 358.0
+offset_left = 147.0
+offset_top = 353.0
+offset_right = 206.0
+offset_bottom = 376.0
 text = "Weight:"
 
-[node name="Weight" type="Label" parent="."]
+[node name="Weight" type="SpinBox" parent="."]
 layout_mode = 0
-offset_left = 248.0
-offset_top = 342.0
-offset_right = 323.0
-offset_bottom = 365.0
-text = "Loading..."
+offset_left = 239.0
+offset_top = 358.0
+offset_right = 322.063
+offset_bottom = 389.0
 
 [node name="StatusLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
-offset_left = 256.0
-offset_top = 538.0
-offset_right = 356.0
-offset_bottom = 578.0
+offset_left = 244.0
+offset_top = 463.0
+offset_right = 344.0
+offset_bottom = 503.0
 text = "Loading..."
 
 [node name="CompleteButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 397.0
-offset_top = 499.0
-offset_right = 526.0
-offset_bottom = 603.0
+offset_left = 370.0
+offset_top = 446.0
+offset_right = 499.0
+offset_bottom = 521.0
 text = "Complete"
+
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 561.0
+offset_right = 348.0
+offset_bottom = 626.0
+text = "Save"
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="CompleteButton" to="." method="_on_complete_button_pressed"]
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]

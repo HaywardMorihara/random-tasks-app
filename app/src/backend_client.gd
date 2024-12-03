@@ -41,8 +41,14 @@ func complete_task(task_id : String) -> void:
 	var json = JSON.stringify({
 		"status": "COMPLETED",
 	});
-	var headers = ["Content-Type: application/json"]
-	request(_build_request_url("/tasks/%s" % task_id), headers, HTTPClient.METHOD_PATCH, json)
+	var headers = ["Content-Type: application/json"];
+	request(_build_request_url("/tasks/%s" % task_id), headers, HTTPClient.METHOD_PATCH, json);
+
+
+func edit_task(task_id : String, edited_task_data : Dictionary) -> void:
+	var json = JSON.stringify(edited_task_data);
+	var headers = ["Content-Type: application/json"];
+	request(_build_request_url("/tasks/%s" % task_id), headers, HTTPClient.METHOD_PATCH, json);
 
 
 func _build_request_url(path : String) -> String:

@@ -32,6 +32,16 @@ func _on_task_ui_task_completed() -> void:
 	_reload_tasks();
 
 
+func _on_task_ui_task_edited() -> void:
+	_reload_tasks();
+
+
+func _on_all_tasks_list_item_selected(index: int) -> void:
+	var selected_task_data = all_tasks_list.get_item_metadata(index);
+	task_ui.open(selected_task_data.id);
+	create_task_ui.hide();
+
+
 func _reload_tasks() -> void:
 	all_tasks_list.clear();
 	await get_tree().create_timer(0.5).timeout;
@@ -39,9 +49,3 @@ func _reload_tasks() -> void:
 	for task in all_tasks_response:
 		all_tasks_list.add_item(task.label);
 		all_tasks_list.set_item_metadata(all_tasks_list.item_count - 1, task);
-
-
-func _on_all_tasks_list_item_selected(index: int) -> void:
-	var selected_task_data = all_tasks_list.get_item_metadata(index);
-	task_ui.open(selected_task_data.id);
-	create_task_ui.hide();
