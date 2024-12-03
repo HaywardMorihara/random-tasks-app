@@ -132,16 +132,21 @@ export const handler = async (event, context) => {
         var ExpressionAttributeNames = {};
         var ExpressionAttributeValues = {};
 
-        if (requestJSON.status) {
-          updateExpressionParts.push("#status = :updatedStatus");
-          // Necessary because 'status' is a reserved word
-          ExpressionAttributeNames["#status"] = "status";
-          ExpressionAttributeValues[":updatedStatus"] = requestJSON.status
+        if (requestJSON.label) {
+          updateExpressionParts.push("#label = :updatedLabel");
+          ExpressionAttributeNames["#label"] = "label";
+          ExpressionAttributeValues[":updatedLabel"] = requestJSON.label;
         }
         if (requestJSON.weight) {
           updateExpressionParts.push("#weight = :updatedWeight");
           ExpressionAttributeNames["#weight"] = "weight";
           ExpressionAttributeValues[":updatedWeight"] = requestJSON.weight;
+        }
+        if (requestJSON.status) {
+          updateExpressionParts.push("#status = :updatedStatus");
+          // Necessary because 'status' is a reserved word
+          ExpressionAttributeNames["#status"] = "status";
+          ExpressionAttributeValues[":updatedStatus"] = requestJSON.status
         }
 
         await dynamo.send(
