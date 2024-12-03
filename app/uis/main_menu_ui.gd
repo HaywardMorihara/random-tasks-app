@@ -43,8 +43,8 @@ func _on_all_tasks_list_item_selected(index: int) -> void:
 
 
 func _reload_tasks() -> void:
+	await get_tree().create_timer(0.5).timeout; # To give time for the submission to be processed
 	all_tasks_list.clear();
-	await get_tree().create_timer(0.5).timeout;
 	var all_tasks_response : Array = await backend_client.get_tasks();
 	for task in all_tasks_response:
 		all_tasks_list.add_item(task.label);
