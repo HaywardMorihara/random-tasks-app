@@ -1,5 +1,6 @@
 extends Panel
 
+signal edit_task_ui_closed;
 signal task_completed;
 signal task_edited;
 
@@ -38,6 +39,7 @@ func open_random() -> void:
 
 func _on_close_button_pressed() -> void:
 	_hide_self();
+	edit_task_ui_closed.emit();
 
 
 func _on_complete_button_pressed() -> void:

@@ -1,6 +1,7 @@
 extends Control
 
 signal task_created
+signal create_task_ui_closed;
 
 @onready var backend_client : BackendClient = $BackendClient;
 @onready var task_label_text_edit : TextEdit = $TaskLabelTextEdit;
@@ -18,6 +19,7 @@ func _on_create_button_pressed() -> void:
 
 
 func _on_close_button_pressed() -> void:
+	create_task_ui_closed.emit();
 	hide();
 	_reset();
 
