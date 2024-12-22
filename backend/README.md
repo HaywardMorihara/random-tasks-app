@@ -5,6 +5,14 @@
 ```bash
 ./scripts/deploy
 ```
+ 
+The deployment configuration and local development scripts make use of [AWS SAM (Serverless Application Mode)](https://aws.amazon.com/serverless/sam/) which is essentially a CLI and a framework on top of CloudFormation templates that makes development & deployment with Lambdas easier.
+
+Other SAM Commands:
+```bash
+[*] Validate SAM template: sam validate
+[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
+```
 
 ### Make backend requests
 See the scripts under `backend/scripts/req/`
@@ -25,11 +33,6 @@ LOCAL=true ./scripts/req/get-random
 ```
 (Note: Requests are made to the remote DynamoDB instance)
 
-### Other SAM Commands
-```bash
-[*] Validate SAM template: sam validate
-[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
-```
 
 ### Run unit tests
 ```bash
@@ -76,9 +79,6 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 | GET Task | /tasks/<TASK_ID>?user_id=<USER_ID> | task_id, user_id | Task Object |
 | PATCH Task | /tasks/<TASK_ID>?user_id=<USER_ID> | user_id, task_id, other patchable properties optional | - |
 
-### SAM 
-The deployment configuration and local development scripts make use of [AWS SAM (Serverless Application Mode)](https://aws.amazon.com/serverless/sam/) which is essentially a CLI and a framework on top of CloudFormation templates that makes development & deployment with Lambdas easier.
-
 ### Random Algorithm
 
 **Calculation on READs rather than WRITEs**
@@ -116,3 +116,6 @@ Alternative Algorithm:
 4. Get the task at the index of the random value.
 
 Tradeoffs: While it's _maybe_ slightly faster, it also (a) has a bigger memory footprint, but more importantly (b) works with floating values for weights (this algorithm wouldn't work with floating values unless you know the smallest possible weight and they're all multiples of each other. In which case, you kinda might as well use integers, and you lost the flexibility)
+
+### User Login
+See Notion for details

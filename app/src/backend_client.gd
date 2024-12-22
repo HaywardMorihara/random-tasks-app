@@ -1,11 +1,13 @@
 class_name BackendClient extends HTTPRequest
 
-const DOMAIN = "https://a8hmbfh87l.execute-api.us-east-1.amazonaws.com"
 
+var domain : String
 var response_json : Variant 
 
 
 func _ready() -> void:
+	domain = Export.DOMAIN;
+	
 	# Signals
 	self.request_completed.connect(_on_request_completed);	
 
@@ -52,7 +54,7 @@ func edit_task(task_id : String, edited_task_data : Dictionary) -> void:
 
 
 func _build_request_url(path : String) -> String:
-	return "%s%s?user_id=%s" % [DOMAIN, path, User.USER_ID]
+	return "%s%s?user_id=%s" % [domain, path, User.USER_ID]
 
 
 func _on_request_completed(result, response_code, headers, body):

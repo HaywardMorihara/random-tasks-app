@@ -13,10 +13,7 @@ This is for tasks that are "distractions" -- that don't have to get done and may
 ## Architecture
 
 ### Frotend: Godot 
-The frontend is built with Godot because it is the most familiar way for building a UI
-  - Tradeoff: I’m guessing I’m missing out on standard mobile functionality (e.g. notifications); not learning standard FE application development tools (e.g. React)
-
-**Deployment:** Just manually building the application onto my Android phone while plugged in. Haven't bothered even with a web version (yet). 
+The frontend is build with Godot. See [app/README](app/README.md) for details.
 
 ### Backend: AWS
 The backend is built with AWS. See [backend/README](backend/README.md) for more info about the architecture and how to deploy/test it.

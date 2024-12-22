@@ -18,6 +18,7 @@ config/icon="res://RandomTasksAppIcon.png"
 
 [autoload]
 
+Export="*res://export.gd"
 User="*res://src/user.gd"
 
 [display]

@@ -1,9 +1,5 @@
 extends Node
 
-# TODO Remove; temp hack
-const NATHANIEL_USER_ID = "245678";
-const NATHANIEL_USERNAME = "Nathaniel";
-
 const USER_SAVE_FILE_PATH := "user://user.save";
 
 const USER_ID_KEY := "user_id";
@@ -19,21 +15,12 @@ func _ready() -> void:
 	if user != null and not user.is_empty():
 		USER_ID = user["user_id"];
 		USERNAME = user["username"];
-	
-	# TODO Remove; temp hack 
-	if not USER_ID or not USERNAME:
-		USER_ID = NATHANIEL_USER_ID
-		USERNAME = NATHANIEL_USERNAME
-		user = {
-			USER_ID_KEY: USER_ID,
-			USERNAME_KEY: USERNAME,
-		}
-		_save_user_on_device(user);
 
 func _load_user_from_device() -> Dictionary:
 	# Note: This can be called from anywhere inside the tree. This function
 	# is path independent.
 	if not FileAccess.file_exists(USER_SAVE_FILE_PATH):
+		print("No user found on the device.");
 		return {}
 
 	# Load the file line by line and process that dictionary to restore
@@ -48,6 +35,8 @@ func _load_user_from_device() -> Dictionary:
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			return {}
+
+	print("Loaded user %s from device" % json.data);
 
 	return json.data
 
