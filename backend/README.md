@@ -55,6 +55,7 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 
 ### DynamoDB Table Schema:
 
+Tasks:
 ```json
 {
 	"pk": "USER_ID#<USER_ID>", // Partition Key
@@ -66,6 +67,16 @@ Single Lambda, because that’s the easiest & fastest. Change when there's a pro
 	// v0.2+
 	"number_of_skips": 0,
 	"weight": 1.0
+}
+```
+
+Users:
+```json
+{
+	"pk": "USER_ID#<USER_ID>", // Partition Key
+	"sk": "USER_ID#<USER_ID>", // Sort Key
+	"id": "<USER_ID>", // UUID
+	"username": "Nathaniel Morihara"
 }
 ```
 

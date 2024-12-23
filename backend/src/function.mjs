@@ -89,7 +89,7 @@ export const handler = async (event, context) => {
         let queryResponse = await dynamo.send(
           new QueryCommand({ 
             TableName: tableName,
-            KeyConditionExpression: "pk = :pkValue",
+            KeyConditionExpression: "pk = :pkValue AND begins_with(sk, :skPrefix)",
             FilterExpression: "#status = :statusValue",
             // Necessary because 'status' is a reserved word
             ExpressionAttributeNames: {
@@ -97,6 +97,7 @@ export const handler = async (event, context) => {
             },
             ExpressionAttributeValues: {
                 ":pkValue": `USER_ID#${userId}`,
+                ":skPrefix": "TASK_CREATED_AT#",
                 ":statusValue": "TODO",
             },
           })
@@ -108,7 +109,7 @@ export const handler = async (event, context) => {
         responseBody = await dynamo.send(
           new QueryCommand({ 
             TableName: tableName,
-            KeyConditionExpression: "pk = :pkValue",
+            KeyConditionExpression: "pk = :pkValue AND begins_with(sk, :skPrefix)",
             FilterExpression: "#status = :statusValue",
             // Necessary because 'status' is a reserved word
             ExpressionAttributeNames: {
@@ -116,6 +117,7 @@ export const handler = async (event, context) => {
             },
             ExpressionAttributeValues: {
                 ":pkValue": `USER_ID#${userId}`,
+                ":skPrefix": "TASK_CREATED_AT#",
                 ":statusValue": "TODO",
             },
           })

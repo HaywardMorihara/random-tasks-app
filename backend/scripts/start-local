@@ -3,4 +3,12 @@ set -eo pipefail
 
 # Note: Makes requests to the remote DynamoDB
 
+# Check if AWS credentials file exists and is not empty
+if [ ! -f ~/.aws/credentials ] || ! grep -q "aws_access_key_id" ~/.aws/credentials; then
+    echo "AWS credentials are not configured. Running 'aws configure'..."
+    aws configure
+else
+    echo "AWS credentials are already configured."
+fi
+
 sam local start-api
