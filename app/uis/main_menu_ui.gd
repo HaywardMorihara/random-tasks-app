@@ -1,11 +1,14 @@
 extends Control
 
+const USER_LABEL_TEXT = "Hello %s"
+
 @onready var backend_client : BackendClient = $BackendClient;
 @onready var get_random_tasks_button : Button = $GetRandomTaskButton;
 @onready var create_task_button : Button = $CreateTaskButton;
 @onready var create_task_ui : Control = $CreateTaskUi;
 @onready var edit_task_ui : Control = $EditTaskUi;
 @onready var all_tasks_list : ItemList = $AllTasksList;
+@onready var user_label : Label = $UserLabel;
 
 # State
 var task_list_has_been_loaded_first_time : bool = false;
@@ -15,6 +18,8 @@ func _ready() -> void:
 	create_task_ui.show();
 	edit_task_ui.hide();
 	all_tasks_list.hide();
+	
+	user_label.text = USER_LABEL_TEXT % User.USERNAME;
 
 
 func _on_create_task_button_pressed() -> void:
@@ -54,6 +59,10 @@ func _on_edit_task_ui_edit_task_ui_closed() -> void:
 	if not task_list_has_been_loaded_first_time:
 		_reload_tasks();
 	all_tasks_list.show();
+
+func _on_sign_out_button_pressed() -> void:
+	User.sign_out();
+	user_label.text = "";
 
 
 func _reload_tasks() -> void:

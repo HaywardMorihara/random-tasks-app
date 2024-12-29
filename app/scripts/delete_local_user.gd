@@ -2,6 +2,9 @@
 
 extends EditorScript
 
+# Note: I don't really need this tool now that sign out is a button, 
+# but keeping it as an example of how to do tools
+
 # Execute with Ctrl + Shift + X
 # For manual testing purposes
 # https://docs.godotengine.org/en/stable/tutorials/plugins/running_code_in_the_editor.html#running-one-off-scripts-using-editorscript 

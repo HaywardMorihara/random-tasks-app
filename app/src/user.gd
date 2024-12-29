@@ -16,6 +16,22 @@ func _ready() -> void:
 		USER_ID = user["user_id"];
 		USERNAME = user["username"];
 
+func sign_out() -> void:
+	if FileAccess.file_exists(USER_SAVE_FILE_PATH):
+		var dir = DirAccess.open("user://");
+		if dir:
+			var result = dir.remove(USER_SAVE_FILE_PATH);
+			if result == OK:
+				print("%s deleted successfully!" % USER_SAVE_FILE_PATH);
+			else:
+				print("Failed to delete %s." % USER_SAVE_FILE_PATH);
+	else:
+		print("File does not exist: %s" % USER_SAVE_FILE_PATH);
+		return;
+	USER_ID = "";
+	USERNAME = "";
+
+
 func _load_user_from_device() -> Dictionary:
 	# Note: This can be called from anywhere inside the tree. This function
 	# is path independent.

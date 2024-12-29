@@ -78,6 +78,20 @@ offset_bottom = 900.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="UserLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Hello __"
+
+[node name="SignOutButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 643.0
+offset_top = 10.0
+offset_right = 717.0
+offset_bottom = 50.0
+text = "Sign Out"
+
 [connection signal="item_selected" from="AllTasksList" to="." method="_on_all_tasks_list_item_selected"]
 [connection signal="pressed" from="GetRandomTaskButton" to="." method="_on_get_random_task_button_pressed"]
 [connection signal="pressed" from="CreateTaskButton" to="." method="_on_create_task_button_pressed"]
@@ -86,3 +100,4 @@ grow_vertical = 1
 [connection signal="edit_task_ui_closed" from="EditTaskUi" to="." method="_on_edit_task_ui_edit_task_ui_closed"]
 [connection signal="task_completed" from="EditTaskUi" to="." method="_on_task_ui_task_completed"]
 [connection signal="task_edited" from="EditTaskUi" to="." method="_on_task_ui_task_edited"]
+[connection signal="pressed" from="SignOutButton" to="." method="_on_sign_out_button_pressed"]
