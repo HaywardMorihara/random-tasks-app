@@ -43,6 +43,11 @@ Resources:
           Properties:
             Path: /tasks/{id}
             Method: PATCH
+        UserSignIn:
+          Type: HttpApi
+          Properties:
+            Path: /users/signin
+            Method: POST
 
   RandomTasksTable:
     Type: AWS::DynamoDB::Table
@@ -56,11 +61,23 @@ Resources:
           AttributeType: S
         - AttributeName: sk
           AttributeType: S
+        - AttributeName: username
+          AttributeType: S
       KeySchema:
         - AttributeName: pk
           KeyType: HASH
         - AttributeName: sk
           KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: UsernameIndex
+          KeySchema:
+            - AttributeName: username
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
 
 Outputs:
   ApiEndpoint:

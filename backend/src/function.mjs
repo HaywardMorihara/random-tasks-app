@@ -26,13 +26,15 @@ export const handler = async (event, context) => {
     // DEBUG
     // console.log(event);
 
-    let requestJSON
+    let requestJSON;
     if (event.body) {
       requestJSON = JSON.parse(event.body);
     }
-    
-    let userId = event?.queryStringParameters?.["user_id"];
-    if (!userId) throw new Error("Bad request - missing 'user_id' query param");
+
+    if (event.routeKey.startsWith("POST /tasks") || event.routeKey.startsWith("GET /tasks") || event.routeKey.startsWith("PATCH /tasks")) {
+      let userId = event?.queryStringParameters?.["user_id"];
+      if (!userId) throw new Error("Bad request - missing 'user_id' query param");
+    }
 
     switch (event.routeKey) {
 
@@ -96,9 +98,9 @@ export const handler = async (event, context) => {
               "#status": "status"
             },
             ExpressionAttributeValues: {
-                ":pkValue": `USER_ID#${userId}`,
-                ":skPrefix": "TASK_CREATED_AT#",
-                ":statusValue": "TODO",
+              ":pkValue": `USER_ID#${userId}`,
+              ":skPrefix": "TASK_CREATED_AT#",
+              ":statusValue": "TODO",
             },
           })
         );
@@ -167,6 +169,33 @@ export const handler = async (event, context) => {
         responseBody = `Success! Updated task ${taskId}`
         break;
       
+      case "POST /users/signin":
+        var username = requestJSON["username"];
+        if (!username) throw new Error("Bad request - missing 'username'");
+
+        let userResponse = await dynamo.send(
+          new QueryCommand({
+            TableName: tableName,
+            IndexName: "UsernameIndex",
+            KeyConditionExpression: "username = :usernameValue",
+            ExpressionAttributeValues: {
+              ":usernameValue": username
+            },
+          })
+        );
+
+        if (userResponse.Items.length === 0) {
+          throw new Error("User not found");
+        }
+
+        if (userResponse.Items.length > 1) {
+          console.error(`Multiple users found with the username: ${username}`);
+          throw new Error("Internal Server Error");
+        }
+
+        responseBody = userResponse.Items[0];
+        break;
+
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }

@@ -1,0 +1,22 @@
+#!/bin/bash
+set -eo pipefail
+
+if [ -z "$1" ]; then
+  echo "Error: Missing username." >&2
+  echo "Usage: $0 <username>" >&2
+  exit 1
+fi
+username=$1
+
+source scripts/req/setup
+
+echo "Requests from user ${TEST_USER_ID}"
+
+DATA=$(cat <<EOF
+{
+    "username": "${username}"
+}
+EOF
+)
+
+curl -X POST -H "Content-Type: application/json" -d "$DATA" ${DOMAIN}/users/signin | python3 -m json.tool

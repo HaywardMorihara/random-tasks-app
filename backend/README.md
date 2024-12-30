@@ -79,6 +79,7 @@ Users:
 	"username": "Nathaniel Morihara"
 }
 ```
+Note: In retrospect, should consider making a `PK: USERS, SK: USER#<USER_ID>` -- that way, wouldn't need a `UsernameIndex` GSI 
 
 ### APIs
 
@@ -89,6 +90,7 @@ Users:
 | GET Tasks | /tasks?user_id=<USER_ID> | user_id (Later: Page, Sort, Filters) | [] { task_id, label, status }, paged |
 | GET Task | /tasks/<TASK_ID>?user_id=<USER_ID> | task_id, user_id | Task Object |
 | PATCH Task | /tasks/<TASK_ID>?user_id=<USER_ID> | user_id, task_id, other patchable properties optional | - |
+| POST Sign In | /users/signin | username | { username, user_id } |
 
 ### Random Algorithm
 
