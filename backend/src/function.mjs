@@ -31,8 +31,8 @@ export const handler = async (event, context) => {
       requestJSON = JSON.parse(event.body);
     }
 
+    let userId = event?.queryStringParameters?.["user_id"]; 
     if (event.routeKey.startsWith("POST /tasks") || event.routeKey.startsWith("GET /tasks") || event.routeKey.startsWith("PATCH /tasks")) {
-      let userId = event?.queryStringParameters?.["user_id"];
       if (!userId) throw new Error("Bad request - missing 'user_id' query param");
     }
 
