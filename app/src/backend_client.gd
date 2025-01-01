@@ -72,7 +72,6 @@ func user_sign_in(username : String) -> Dictionary:
 
 func _build_request_url(path : String) -> String:
 	var url := "%s%s?user_id=%s" % [domain, path, User.USER_ID]
-	print("Making request to URL: %s" % url)
 	return url
 
 func _build_request_url_no_user(path : String) -> String:
