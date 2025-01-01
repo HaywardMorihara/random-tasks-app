@@ -5,6 +5,8 @@ const USER_SAVE_FILE_PATH := "user://user.save";
 const USER_ID_KEY := "user_id";
 const USERNAME_KEY := "username";
 
+var backend_client : BackendClient;
+
 var USER_ID : String
 var USERNAME : String
 
@@ -15,6 +17,19 @@ func _ready() -> void:
 	if user != null and not user.is_empty():
 		USER_ID = user["user_id"];
 		USERNAME = user["username"];
+
+	backend_client = BackendClient.new();
+	add_child(backend_client);
+
+
+func sign_in(username : String) -> bool:
+	# Note: There's a risk of a circular dependency here - because the backend client uses the Global User.USER_ID
+	var user = await backend_client.user_sign_in(username);
+	if user.is_empty():
+		return false;
+	USER_ID = user["user_id"];
+	USERNAME = user["username"];
+	return true;
 
 func sign_out() -> void:
 	if FileAccess.file_exists(USER_SAVE_FILE_PATH):
