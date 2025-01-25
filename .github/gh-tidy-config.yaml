@@ -1,0 +1,4 @@
+default_flags:
+  rebase_all: true
+  skip_gc: true
+  trunk_branch: main
