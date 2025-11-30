@@ -13,7 +13,7 @@ Resources:
     Properties:
       CodeUri: src/
       Handler: function.handler
-      Runtime: nodejs20.x
+      Runtime: nodejs24.x
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref RandomTasksTable
